@@ -2,7 +2,8 @@
     <div v-if="config.id" class="template-module" :style="containerStyle">
         <TemplateCanvas
             :config="config"
-            :canvasConfig="config.canvasMap[config.rootCanvas]"
+            :canvasConfig="config.elementsMap[config.rootCanvas]"
+            :editStatus="editStatus"
         />
     </div>
 </template>
@@ -21,13 +22,26 @@ export default {
                 return {}
             },
         },
+        mode: {
+            type: String,
+            default: 'presentaion',
+        },
     },
     data() {
         return {
             containerStyle: {},
+            editStatus: {
+                selectElementId: '',
+            },
         }
     },
     created() {
+        if (this.mode === 'edit') {
+            this.$set(this, 'editStatus', {
+                isActive: true,
+                selectElementId: '',
+            })
+        }
         if (this.config.id) {
             this.containerStyle = this.config.containerStyle || {
                 position: 'relative',
