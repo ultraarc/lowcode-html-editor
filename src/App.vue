@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TemplateModuleEditor from './components/TemplateModuleEditor.vue'
+import TemplateModuleEditor from './components/TemplateModuleEditor/index.vue'
 
 export default {
     name: 'App',
@@ -20,24 +20,27 @@ export default {
             },
             config: {
                 id: '213213',
-                containerStyle: {},
-                canvas: {
-                    components: ['component001'],
-                    layouts: 'layout001',
+                // containerStyle: {},
+                rootCanvas: 'canvas001',
+                componentMap: {
+                    component001: {
+                        template: '',
+                        style: {},
+                    },
                 },
-            },
-            componentMap: {
-                component001: {
-                    template: '',
-                    style: {},
+                canvasMap: {
+                    canvas001: {
+                        components: ['component001'],
+                        layout: 'layout001',
+                        subCanvases: [],
+                    },
                 },
-            },
-            canvasMap: {},
-            layoutMap: {
-                layout001: {
-                    type: 'vertical', // 横向 or 纵向
-                    canvases: [],
-                    config: '', // 配置项
+                layoutMap: {
+                    layout001: {
+                        type: 'column', // 横向 or 纵向
+                        canvases: [],
+                        config: '', // 配置项
+                    },
                 },
             },
         }

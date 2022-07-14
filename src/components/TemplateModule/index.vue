@@ -1,6 +1,9 @@
 <template>
     <div v-if="config.id" class="template-module" :style="containerStyle">
-        <TemplateCanvas :config="config" :canvasConfig="config.canvas" />
+        <TemplateCanvas
+            :config="config"
+            :canvasConfig="config.canvasMap[config.rootCanvas]"
+        />
     </div>
 </template>
 
@@ -26,7 +29,11 @@ export default {
     },
     created() {
         if (this.config.id) {
-            this.containerStyle = this.config.containerStyle || {}
+            this.containerStyle = this.config.containerStyle || {
+                position: 'relative',
+                width: '100%',
+                height: '100%',
+            }
         }
     },
 }

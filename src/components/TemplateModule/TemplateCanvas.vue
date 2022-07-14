@@ -1,10 +1,21 @@
 <template>
     <div class="template-canvas">
         <template v-if="hasLayout">
-            <TemplateLayout />
+            <TemplateLayout
+                :config="config"
+                :layoutConfig="config.layoutMap[canvasConfig.layout]"
+            />
         </template>
         <template v-if="hasComponent">
             <div class="component-container"></div>
+        </template>
+        <template v-if="hasSubCanvas">
+            <TemplateCanvas
+                v-for="canvasId in canvasConfig.subCanvases"
+                :key="canvasId"
+                :config="config"
+                :canvasConfig="config.canvasMap[canvasId]"
+            />
         </template>
     </div>
 </template>
@@ -36,10 +47,22 @@ export default {
             return this.canvasConfig.components.length > 0
         },
         hasLayout() {
-            return this.canvasConfig.layout.length > 0
+            const layoutId = this.canvasConfig.layout
+            return this.config.layoutMap[layoutId] !== undefined
+        },
+        hasSubCanvas() {
+            return this.canvasConfig.subCanvases.length > 0
         },
     },
 }
 </script>
 
-<style></style>
+<style>
+.template-canvas {
+    border: 1px rgb(48, 179, 245) dashed;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+</style>

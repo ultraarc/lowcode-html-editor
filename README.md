@@ -1,5 +1,7 @@
 # lowcode-html-editor
 
+认真分析 render 和 template 的机制。
+
 待完成的功能点：
 
 -   从指定画布复制/剪切组件到另一张画布

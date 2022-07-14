@@ -41,7 +41,7 @@ export default {
     },
     methods: {
         setFlexDirection() {
-            if (this.nodeConfig.type === 'vertical') {
+            if (this.layoutConfig.type === 'column') {
                 this.style['flex-direction'] = 'column'
             } else {
                 this.style['flex-direction'] = 'row'

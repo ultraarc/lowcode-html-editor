@@ -3,15 +3,20 @@
         <div style="background: #ddd; flex: 1; width: 100%">
             布局树（可选中组件或画布）
         </div>
-        <div style="background: #ccc; flex: 1; width: 100%">
-            预览区（可选中组件或画布）
-            <TemplateModule :config="config" />
+        <div
+            class="preview-zone"
+            style="background: #eee; flex: 1; width: 100%"
+        >
+            <div>预览区（可选中组件或画布）</div>
+            <div class="preview-container">
+                <TemplateModule :config="config" />
+            </div>
         </div>
     </div>
 </template>
 
 <script>
-import TemplateModule from './TemplateModule.vue'
+import TemplateModule from '../TemplateModule'
 export default {
     name: 'TemplateModuleEditor',
     components: {
@@ -51,5 +56,15 @@ export default {
 <style scoped>
 .template-module-editor {
     display: flex;
+}
+
+.preview-zone {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.preview-container {
+    padding: 10px;
+    flex: 1;
 }
 </style>
