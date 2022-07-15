@@ -2,7 +2,7 @@
     <div
         class="template-canvas"
         :class="{ 'edit-mode': editStatus.isActive }"
-        :style="{}"
+        :style="activeStyle"
         @click="canvasClick"
     >
         <div
@@ -83,6 +83,10 @@ export default {
         },
         hasSubCanvas() {
             return this.canvasConfig.subCanvases.length > 0
+        },
+        activeStyle() {
+            let style = this.canvasConfig.style
+            return style
         },
     },
     methods: {

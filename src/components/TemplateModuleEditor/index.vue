@@ -2,6 +2,7 @@
     <div class="template-module-editor" :style="{ width, height }">
         <div style="background: #ddd; flex: 1; width: 100%">
             布局树（可选中组件或画布）
+            <StructureTree :config="config" />
         </div>
         <div>
             <h2>工具区</h2>
@@ -9,11 +10,11 @@
             <button @click="selectParentElement">选择父布局</button>
             <button @click="selectChildLayout">选中子布局</button>
             <button @click="addChildLayout">添加子布局</button>
-            <button @click="addChildLayout">添加游离子画布</button>
+            <button @click="addAbsoluteCanvas">添加游离子画布</button>
             <button @click="addChildLayout">转换为游离画布</button>
             <button @click="addChildLayout">插入到指定布局</button>
 
-            <button>删除当前元素</button>
+            <button @click="deleteElement">删除当前元素</button>
 
             <button>编辑当前布局</button>
             <button>画布样式编辑</button>
@@ -35,12 +36,14 @@
 </template>
 
 <script>
-import TemplateModule from '../TemplateModule'
-import { Layout } from './utils/tool'
+import TemplateModule from '../TemplateModule/index.vue'
+import StructureTree from './Components/StructureTree.vue'
+import { Layout, Canvas } from './utils/tool'
 export default {
     name: 'TemplateModuleEditor',
     components: {
         TemplateModule,
+        StructureTree,
     },
     props: {
         container: {
@@ -62,6 +65,9 @@ export default {
         }
     },
     created() {},
+    mounted() {
+        this.editStatus = this.$refs['template-module'].editStatus
+    },
     computed: {
         width() {
             return this.container.width || '100%'
@@ -69,31 +75,35 @@ export default {
         height() {
             return this.container.height || '100%'
         },
+        selectElementId() {
+            return this.$refs['template-module'].editStatus.selectElementId
+        },
     },
     methods: {
         selectParentElement() {
-            const editStatus = this.$refs['template-module'].editStatus
-            const currentId = editStatus.selectElementId
-
-            editStatus.selectElementId =
-                this.config.elementsMap[currentId].parentId
+            this.editStatus.selectElementId =
+                this.config.elementsMap[this.selectElementId].parentId
         },
         selectChildLayout() {
-            const editStatus = this.$refs['template-module'].editStatus
-            const currentId = editStatus.selectElementId
-
-            const childLayout = this.config.elementsMap[currentId].layout
+            const childLayout =
+                this.config.elementsMap[this.selectElementId].layout
             if (childLayout) {
-                editStatus.selectElementId = childLayout
+                this.selectElementId.selectElementId = childLayout
             }
         },
         addChildLayout() {
-            const editStatus = this.$refs['template-module'].editStatus
-            const currentId = editStatus.selectElementId
-            const layout = new Layout({
-                parentId: currentId,
+            new Layout({
+                parentId: this.selectElementId,
+                config: this.config,
             })
         },
+        addAbsoluteCanvas() {
+            const canvas = new Canvas({
+                config: this.config,
+            })
+            canvas.appendToCanvasAsAbsolute(this.selectElementId)
+        },
+        deleteElement() {},
     },
 }
 </script>
