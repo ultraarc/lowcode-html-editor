@@ -4,7 +4,7 @@
             布局树（可选中组件或画布）
             <StructureTree :config="config" />
         </div>
-        <div>
+        <div style="width: 300px">
             <h2>工具区</h2>
             <div>当前选中元素：画布001</div>
             <button @click="selectParentElement">选择父布局</button>
@@ -87,8 +87,9 @@ export default {
         selectChildLayout() {
             const childLayout =
                 this.config.elementsMap[this.selectElementId].layout
+            console.log(childLayout)
             if (childLayout) {
-                this.selectElementId.selectElementId = childLayout
+                this.editStatus.selectElementId = childLayout
             }
         },
         addChildLayout() {
