@@ -64,6 +64,7 @@ export default {
             component: '',
         }
     },
+
     created() {},
     mounted() {
         this.editStatus = this.$refs['template-module'].editStatus
@@ -79,7 +80,6 @@ export default {
             return this.$refs['template-module'].editStatus.selectElementId
         },
     },
-
     methods: {
         selectParentElement() {
             this.editStatus.selectElementId =
