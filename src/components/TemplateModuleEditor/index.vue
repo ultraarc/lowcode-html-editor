@@ -79,6 +79,7 @@ export default {
             return this.$refs['template-module'].editStatus.selectElementId
         },
     },
+
     methods: {
         selectParentElement() {
             this.editStatus.selectElementId =
